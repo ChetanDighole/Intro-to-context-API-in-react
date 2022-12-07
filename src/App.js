@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useState } from "react";
+import Hero from "./Components/Hero";
+import NavBar from "./Components/NavBar";
+
+export const mycontext = createContext()
 
 function App() {
+
+  const [name, setName] = useState("")
+  const [color, setColor] = useState("")
+
+  const myName = (event) => {
+    setName(event.target.value)
+  }
+
+  const myColor = (event) => {
+    setColor(event.target.value)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <mycontext.Provider value = {{ name , color }}>
+
+      <>
+        {/* navbar section */}
+        <NavBar />
+
+        {/* form section */}
+        <form>
+          <input type={"text"} placeholder="Enter your name" value={name} onChange={myName}></input>
+          <input type={"text"} placeholder="Enter your color" value={color} onChange={myColor}></input>
+        </form>
+
+        {/* hero section */}
+        <Hero />
+
+      </>
+    </mycontext.Provider>
   );
 }
 
